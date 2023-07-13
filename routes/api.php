@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MovieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->group( function () {
+    Route::get('getMovies', [MovieController::class, 'getMovies']);
+    Route::get('getMoviesPage', [MovieController::class, 'getMoviesPage']);
+    Route::get('getSingleMovie/{id}', [MovieController::class, 'getSingleMovie']);
+    Route::post('saveMovie', [MovieController::class, 'saveMovie']);
+    Route::post('updateMovie/{id}', [MovieController::class, 'updateMovie']);
+    Route::post('deleteMovie/{id}', [MovieController::class, 'deleteMovie']);
+});
+
